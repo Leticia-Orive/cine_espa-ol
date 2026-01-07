@@ -20,7 +20,7 @@
       <div class="pelicula-card" *ngFor="let pelicula of peliculas">
         <div class="pelicula-image">
           <img [src]="pelicula.imagen_url" [alt]="pelicula.titulo"
-               onerror="this.src='https://via.placeholder.com/300x450?text=Sin+Imagen'">
+               onerror="this.src='https://placehold.co/300x450/333/white?text=Sin+Imagen'">
           <span class="clasificacion">{{ pelicula.clasificacion }}</span>
         </div>
         <div class="pelicula-info">

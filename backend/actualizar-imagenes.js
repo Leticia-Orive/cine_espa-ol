@@ -9,12 +9,12 @@ async function actualizarImagenes() {
   });
 
   const imagenes = {
-    1: 'https://image.tmdb.org/t/p/w500/l1GRe7r7EMvl2FmMVBFzxdwpT8S.jpg', // El Laberinto del Fauno
-    2: 'https://image.tmdb.org/t/p/w500/pMUwX5F2wXLdQRvzKjfC6HJWPzb.jpg', // Todo sobre mi madre
-    3: 'https://image.tmdb.org/t/p/w500/eAUzmhVSPJJBGHY6pB0KhQzMO1V.jpg', // Mar adentro
-    4: 'https://image.tmdb.org/t/p/w500/lSqbOA9OsLBFBjRbKnrMDEGKlJj.jpg', // REC
-    5: 'https://image.tmdb.org/t/p/w500/mf8JzMHbpXhPIS5MnVHJqXD3XlS.jpg', // Volver
-    6: 'https://image.tmdb.org/t/p/w500/6X1b5hEBOdebG3Vh5wN8zqDUGwN.jpg'  // Celda 211
+    1: 'https://pics.filmaffinity.com/El_laberinto_del_fauno-476023024-large.jpg', // El Laberinto del Fauno
+    2: 'https://pics.filmaffinity.com/Todo_sobre_mi_madre-517973090-large.jpg', // Todo sobre mi madre
+    3: 'https://pics.filmaffinity.com/Mar_adentro-998445563-large.jpg', // Mar adentro
+    4: 'https://pics.filmaffinity.com/REC-831524480-large.jpg', // REC
+    5: 'https://pics.filmaffinity.com/Volver-458018906-large.jpg', // Volver
+    6: 'https://pics.filmaffinity.com/Celda_211-854877086-large.jpg'  // Celda 211
   };
 
   for (const [id, url] of Object.entries(imagenes)) {
