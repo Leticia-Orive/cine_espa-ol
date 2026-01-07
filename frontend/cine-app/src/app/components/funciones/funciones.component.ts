@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FuncionService } from '../../services/funcion.service';
 import { Funcion } from '../../models/cine.models';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-funciones',
@@ -14,11 +14,22 @@ export class FuncionesComponent implements OnInit {
   funciones: Funcion[] = [];
   loading = true;
   error = '';
+  peliculaId: number | null = null;
 
-  constructor(private funcionService: FuncionService) {}
+  constructor(
+    private funcionService: FuncionService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.loadFunciones();
+    this.route.params.subscribe(params => {
+      if (params['peliculaId']) {
+        this.peliculaId = +params['peliculaId'];
+        this.loadFuncionesByPelicula(this.peliculaId);
+      } else {
+        this.loadFunciones();
+      }
+    });
   }
 
   loadFunciones(): void {
@@ -30,6 +41,21 @@ export class FuncionesComponent implements OnInit {
       },
       error: (err) => {
         this.error = 'Error al cargar las funciones';
+        this.loading = false;
+        console.error(err);
+      }
+    });
+  }
+
+  loadFuncionesByPelicula(peliculaId: number): void {
+    this.loading = true;
+    this.funcionService.getFuncionesByPelicula(peliculaId).subscribe({
+      next: (data) => {
+        this.funciones = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Error al cargar las funciones de esta película';
         this.loading = false;
         console.error(err);
       }

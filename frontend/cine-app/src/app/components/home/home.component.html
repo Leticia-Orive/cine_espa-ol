@@ -28,7 +28,7 @@
           <p class="director">Director: {{ pelicula.director }}</p>
           <p class="genero">{{ pelicula.genero }} | {{ pelicula.duracion }} min</p>
           <p class="sinopsis">{{ pelicula.sinopsis }}</p>
-          <a routerLink="/funciones" class="btn-funciones">Ver Funciones</a>
+          <a [routerLink]="['/funciones', pelicula.id]" class="btn-funciones">Ver Funciones</a>
         </div>
       </div>
     </div>

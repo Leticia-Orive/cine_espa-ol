@@ -8,6 +8,8 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'peliculas', component: PeliculasComponent },
   { path: 'funciones', component: FuncionesComponent },
+  { path: 'funciones/:peliculaId', component: FuncionesComponent },
   { path: 'reservas', component: ReservasComponent },
   { path: '**', redirectTo: '' }
 ];
+
