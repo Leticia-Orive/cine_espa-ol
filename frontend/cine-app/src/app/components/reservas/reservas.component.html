@@ -1,0 +1,94 @@
+<div class="reservas-container">
+  <header>
+    <h1>🎟️ Mis Reservas</h1>
+    <div>
+      <button class="btn-add" (click)="openForm()">+ Nueva Reserva</button>
+      <a routerLink="/" class="btn-back">← Volver</a>
+    </div>
+  </header>
+
+  <div *ngIf="loading" class="loading">Cargando reservas...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="reservas-list" *ngIf="!loading && !error">
+    <div class="reserva-card" *ngFor="let reserva of reservas">
+      <div class="reserva-header">
+        <h2>{{ reserva.pelicula }}</h2>
+        <button class="btn-cancel" (click)="deleteReserva(reserva.id!)">Cancelar</button>
+      </div>
+      <div class="reserva-details">
+        <div class="detail">
+          <span class="label">Cliente:</span>
+          <span>{{ reserva.nombre_cliente }}</span>
+        </div>
+        <div class="detail">
+          <span class="label">Email:</span>
+          <span>{{ reserva.email_cliente }}</span>
+        </div>
+        <div class="detail">
+          <span class="label">Fecha:</span>
+          <span>{{ formatFecha(reserva.fecha!) }}</span>
+        </div>
+        <div class="detail">
+          <span class="label">Hora:</span>
+          <span>{{ reserva.hora }}</span>
+        </div>
+        <div class="detail">
+          <span class="label">Sala:</span>
+          <span>{{ reserva.sala }}</span>
+        </div>
+        <div class="detail">
+          <span class="label">Asientos:</span>
+          <span class="asientos">{{ reserva.asientos }}</span>
+        </div>
+        <div class="detail">
+          <span class="label">Cantidad:</span>
+          <span class="cantidad">{{ reserva.num_asientos }} asiento(s)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario Modal -->
+  <div class="modal" *ngIf="showForm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Nueva Reserva</h2>
+        <button class="close-btn" (click)="closeForm()">×</button>
+      </div>
+      <form (ngSubmit)="saveReserva()">
+        <div class="form-group">
+          <label>Función *</label>
+          <select [(ngModel)]="currentReserva.funcion_id" name="funcion_id" required>
+            <option value="0">Seleccionar función...</option>
+            <option *ngFor="let funcion of funciones" [value]="funcion.id">
+              {{ funcion.pelicula_titulo }} - {{ formatFecha(funcion.fecha) }} {{ funcion.hora }} - {{ funcion.sala_nombre }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nombre Completo *</label>
+          <input type="text" [(ngModel)]="currentReserva.nombre_cliente" name="nombre" required>
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" [(ngModel)]="currentReserva.email_cliente" name="email" required>
+        </div>
+        <div class="form-group">
+          <label>Número de Asientos *</label>
+          <input type="number" [(ngModel)]="currentReserva.num_asientos" name="num_asientos" min="1" required>
+        </div>
+        <div class="form-group">
+          <label>Asientos (separados por coma: A1,A2,A3) *</label>
+          <input type="text" [(ngModel)]="currentReserva.asientos" name="asientos"
+                 placeholder="Ej: A1,A2,A3" required>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-cancel-form" (click)="closeForm()">Cancelar</button>
+          <button type="submit" class="btn-save">Reservar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

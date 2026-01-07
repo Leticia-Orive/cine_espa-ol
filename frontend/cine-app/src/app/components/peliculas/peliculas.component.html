@@ -1,0 +1,90 @@
+<div class="peliculas-container">
+  <header>
+    <h1>🎬 Gestión de Películas</h1>
+    <button class="btn-add" (click)="openForm()">+ Agregar Película</button>
+  </header>
+
+  <div *ngIf="loading" class="loading">Cargando películas...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="peliculas-list" *ngIf="!loading && !error">
+    <table>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Director</th>
+          <th>Duración</th>
+          <th>Género</th>
+          <th>Clasificación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pelicula of peliculas">
+          <td>{{ pelicula.titulo }}</td>
+          <td>{{ pelicula.director }}</td>
+          <td>{{ pelicula.duracion }} min</td>
+          <td>{{ pelicula.genero }}</td>
+          <td><span class="badge">{{ pelicula.clasificacion }}</span></td>
+          <td class="actions">
+            <button class="btn-edit" (click)="openForm(pelicula)">Editar</button>
+            <button class="btn-delete" (click)="deletePelicula(pelicula.id!)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Formulario Modal -->
+  <div class="modal" *ngIf="showForm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>{{ editMode ? 'Editar Película' : 'Nueva Película' }}</h2>
+        <button class="close-btn" (click)="closeForm()">×</button>
+      </div>
+      <form (ngSubmit)="savePelicula()">
+        <div class="form-group">
+          <label>Título *</label>
+          <input type="text" [(ngModel)]="currentPelicula.titulo" name="titulo" required>
+        </div>
+        <div class="form-group">
+          <label>Director *</label>
+          <input type="text" [(ngModel)]="currentPelicula.director" name="director" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Duración (min) *</label>
+            <input type="number" [(ngModel)]="currentPelicula.duracion" name="duracion" required>
+          </div>
+          <div class="form-group">
+            <label>Género *</label>
+            <input type="text" [(ngModel)]="currentPelicula.genero" name="genero" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Clasificación *</label>
+          <select [(ngModel)]="currentPelicula.clasificacion" name="clasificacion" required>
+            <option value="">Seleccionar...</option>
+            <option value="ATP">ATP</option>
+            <option value="+13">+13</option>
+            <option value="+16">+16</option>
+            <option value="+18">+18</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>URL de Imagen</label>
+          <input type="text" [(ngModel)]="currentPelicula.imagen_url" name="imagen_url">
+        </div>
+        <div class="form-group">
+          <label>Sinopsis</label>
+          <textarea [(ngModel)]="currentPelicula.sinopsis" name="sinopsis" rows="4"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" (click)="closeForm()">Cancelar</button>
+          <button type="submit" class="btn-save">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
